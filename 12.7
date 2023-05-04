@@ -1,0 +1,33 @@
+#include <iostream>
+#include <string>
+
+bool IsKPeriodic(const std::string& str, int k) 
+{
+    // Проверяем, что длина строки больше k и k положительно
+    if (str.length() <= k || k <= 0) {
+        return false;
+    }
+
+    // Перебираем все подстроки длины k
+    for (int i = 0; i < k; ++i) {
+        for (int j = i + k; j < str.length(); j += k) {
+            // Если текущий символ не равен символу с того же места в первой подстроке,
+            // то строка не является k-периодической
+            if (str[j] != str[i]) {
+                return false;
+            }
+        }
+    }
+
+    // Если все проверки прошли успешно, то строка является k-периодической
+    return true;
+}
+
+int main() {
+    std::string str = "abcabcabcabc";
+    int k = 3;
+    bool is_k_periodic = IsKPeriodic(str, k);
+    std::cout << is_k_periodic << std::endl;
+
+    return 0;
+}
